@@ -1,3 +1,10 @@
+**********************************
+Modified to check prices from H&M
+=================================
+- Only runs once, intended to run as cronjob with output file, instead of email notification. 
+- See https://ole.michelsen.dk/blog/schedule-jobs-with-crontab-on-mac-osx.html for helpful OS X cronjob instructions
+**********************************
+
 Amazon price alert
 ==================
 

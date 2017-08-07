@@ -1,13 +1,8 @@
 {
-    "email": {
-        "smtp_url": "smtp.gmail.com:587",
-        "user": "youremail@gmail.com",
-        "password": "yourpassword"
-    },
-    "base_url": "https://www.amazon.de/dp/",
-    "xpath_selector": "//*[@id='priceblock_ourprice']",
+    "base_url": "http://www.hm.com/us/product/",
+    "xpath_selector": "//*[@class='actual-price']",
     "items": [
-        ["B00ZDWLEEG",100],
-        ["B0189XZKXG", 200]
+        ["71150", 10],
+        ["71185", 20]
     ]
 }

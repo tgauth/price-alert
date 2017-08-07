@@ -1,38 +1,14 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import os
 import re
 import json
 import time
 import requests
-import smtplib
 import argparse
 import urlparse
 from copy import copy
 from lxml import html
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-
-def send_email(price, url, email_info):
-    try:
-        s = smtplib.SMTP(email_info['smtp_url'])
-        s.starttls()
-        s.login(email_info['user'], email_info['password'])
-    except smtplib.SMTPAuthenticationError:
-        print('Failed to login')
-    else:
-        print('Logged in! Composing message..')
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = 'Price Alert - %s' % price
-        msg['From'] = email_info['user']
-        msg['To'] = email_info['user']
-        text = 'The price is currently %s !! URL to salepage: %s' % (
-            price, url)
-        part = MIMEText(text, 'plain')
-        msg.attach(part)
-        s.sendmail(email_info['user'], email_info['user'], msg.as_string())
-        print('Message has been sent.')
 
 
 def get_price(url, selector):
@@ -82,18 +58,12 @@ def main():
             if not price:
                 continue
             elif price <= item[1]:
-                print('Price is %s!! Trying to send email.' % price)
-                send_email(price, item_page, config['email'])
+                print('Price is %s!! Go get it at: %s' % (price, item_page))
                 items.remove(item)
             else:
                 print('Price is %s. Ignoring...' % price)
 
-        if len(items):
-            print('Sleeping for %d seconds' % args.poll_interval)
-            time.sleep(args.poll_interval)
-        else:
-            break
-    print('Price alert triggered for all items, exiting.')
+        break
 
 if __name__ == '__main__':
     main()
